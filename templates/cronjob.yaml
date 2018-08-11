@@ -1,0 +1,76 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ template "fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  {{- template "labels" }}
+spec:
+  schedule: {{ .Values.cron }}
+  startingDeadlineSeconds: 120
+  concurrencyPolicy: Forbid
+  suspend: false
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    metadata:
+      {{- template "labels" }}
+    spec:
+      activeDeadlineSeconds: 600
+      completions: 1
+      parallelism: 1
+      backoffLimit: 1
+      template:
+        spec:
+          restartPolicy: OnFailure
+          dnsPolicy: ClusterFirst
+          terminationGracePeriodSeconds: 300
+          {{- if eq .Values.serviceAccount True }}
+          serviceAccountName: {{ template "fullname" . }}
+          {{- else if .Values.serviceAccount }}
+          serviceAccountName: {{ .Values.serviceAccount }}
+          {{- else }}
+          {{- end }}
+          containers:
+            - name: certbot
+              image: certbot/certbot
+              imagePullPolicy: Always
+              args:
+                - certonly
+                - --cert-path=/root/certs/cert.pem
+                - --key-path=/root/certs/privkey.pem
+                - --fullchain-path=/root/certs/fullchain.pem
+                - --chain-path=/root/certs/chain.pem
+                - --config-dir=/root/certbot/config/
+                - --work-dir=/root/certbot/work/
+                - --logs-dir=/root/certbot/logs/
+                - --non-interactive
+                - --keep-until-expiring
+                - --manual
+                - --manual-auth-hook=/root/hooks/auth.sh
+                - --manual-cleanup-hook=/root/hooks/cleanup.sh
+                - --manual-public-ip-logging-ok
+                - --agree-tos
+                - --email={{ range .Values.emails }}{{ . }},{{ end }}
+                {{- range .Values.domains }}
+                - --domain={{ . }}
+                {{- end }}
+              env:
+                - name: CERT_SECRET_NAME
+                  value: {{ .Values.certSecret }}
+                - name: TLS_SECRET_NAME
+                  value: {{ .Values.tlsSecret }}
+                - name: ACME_SECRET_NAME
+                  value: {{ .Values.acmeSecret }}
+              volumeMounts:
+                - name: certs
+                  mountPath: /root/certs/
+                - name: hooks
+                  mountPath: /root/hooks/
+          volumes:
+            - name: certs
+              secret:
+                secretName: {{ .Values.certSecret }}
+            - name: hooks
+              configMap:
+                name: {{ .Values.hooksConfigmap }}
+                defaultMode: 0744

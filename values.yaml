@@ -1,0 +1,10 @@
+domains: # See https://certbot.eff.org/docs/using.html#changing-a-certificate-s-domains
+#- portfolioapi.joshbacon.name
+emails:
+#- jbacon@zagmail.gonzaga.edu
+certSecret: #portfolio-joshbacon-name-certs
+tlsSecret: #portfolio-joshbacon-name-tls
+acmeSecret: #portfolioapi-joshbacon-name-acme
+hookConfigmap: null #portfolioapi-joshbacon-name-hooks
+cron: "0 5 * * 1"
+serviceAccount: True # 'True' generates one for you, or specify existing sa name.

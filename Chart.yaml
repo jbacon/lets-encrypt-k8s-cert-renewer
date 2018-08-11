@@ -1,0 +1,7 @@
+apiVersion: v1
+name: lets-encrypt-cert-renewer
+description: This chart bootstraps my custom Let's Encrypt Cert Renewer
+version: "1.0"
+maintainers:
+  - name: Josh Bacon
+    email: jbacon@zagmail.gonzaga.edu

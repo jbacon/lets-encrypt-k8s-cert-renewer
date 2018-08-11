@@ -1,0 +1,9 @@
+{{- if .Values.hookConfigmap }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "fullname" . }}
+  namespace: {{ .Release.Namespace }}
+data:
+{{ (.Files.Glob "hooks/*").AsConfig | indent 2 }}
+{{- end }}
