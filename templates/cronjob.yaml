@@ -24,7 +24,7 @@ spec:
           restartPolicy: OnFailure
           dnsPolicy: ClusterFirst
           terminationGracePeriodSeconds: 300
-          {{- if eq .Values.serviceAccount True }}
+          {{- if eq .Values.serviceAccount "True" }}
           serviceAccountName: {{ template "fullname" . }}
           {{- else if .Values.serviceAccount }}
           serviceAccountName: {{ .Values.serviceAccount }}
