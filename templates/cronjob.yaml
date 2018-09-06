@@ -17,11 +17,6 @@ spec:
   failedJobsHistoryLimit: 3
   jobTemplate:
     metadata:
-    labels:
-      app: {{ template "fullname" . }}
-      chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-      release: {{ .Release.Name }}
-      #time: {{ .Release.Time.Seconds | quote }}
     spec:
       activeDeadlineSeconds: 600
       completions: 1
