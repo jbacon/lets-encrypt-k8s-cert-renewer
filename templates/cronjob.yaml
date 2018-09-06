@@ -81,5 +81,9 @@ spec:
                 secretName: {{ .Values.certSecret }}
             - name: hooks
               configMap:
-                name: {{ .Values.hooksConfigmap }}
+                {{- if .Values.hooksConfigmap }}
+                name: {{ .Values.hooksConfigmap | default "" }}
+                {{- else }}
+                name: {{ template "fullname" . }}
+                {{- end }}
                 defaultMode: 0744

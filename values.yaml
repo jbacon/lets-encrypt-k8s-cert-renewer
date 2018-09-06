@@ -5,6 +5,6 @@ emails:
 certSecret: #portfolio-joshbacon-name-certs
 tlsSecret: #portfolio-joshbacon-name-tls
 acmeSecret: #portfolioapi-joshbacon-name-acme
-hookConfigmap: null #portfolioapi-joshbacon-name-hooks
+hookConfigmap: #portfolioapi-joshbacon-name-hooks
 cron: "0 5 * * 1"
 serviceAccount: "True" # 'True' generates one for you, or specify existing sa name.

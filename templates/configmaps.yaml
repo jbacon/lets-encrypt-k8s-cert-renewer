@@ -1,4 +1,4 @@
-{{- if .Values.hookConfigmap }}
+{{- if not .Values.hookConfigmap }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
