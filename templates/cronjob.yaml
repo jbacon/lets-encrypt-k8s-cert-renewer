@@ -17,6 +17,12 @@ spec:
   failedJobsHistoryLimit: 3
   jobTemplate:
     metadata:
+      name: {{ template "fullname" . }}
+      namespace: {{ .Release.Namespace }}
+      labels:
+        app: {{ template "fullname" . }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        release: {{ .Release.Name }}
     spec:
       activeDeadlineSeconds: 600
       completions: 1
