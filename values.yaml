@@ -5,5 +5,5 @@ certSecret: #portfolio-joshbacon-name-certs
 tlsSecret: #portfolio-joshbacon-name-tls
 acmeSecret: #portfolioapi-joshbacon-name-acme
 hookConfigmap: #portfolioapi-joshbacon-name-hooks
-cron: "0 5 * * 1"
+cron: "0 15 * * FRI"
 serviceAccount: "True" # 'True' generates one for you, or specify existing sa name.
