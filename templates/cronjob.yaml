@@ -59,7 +59,6 @@ spec:
                 - --manual-cleanup-hook=/root/hooks/cleanup.sh
                 - --manual-public-ip-logging-ok
                 - --agree-tos
-                - --v
                 - --email={{ .Values.email }}
                 {{- range .Values.domains }}
                 - --domain={{ . }}
