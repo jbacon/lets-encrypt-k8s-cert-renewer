@@ -30,7 +30,7 @@ spec:
       backoffLimit: 1
       template:
         spec:
-          restartPolicy: OnFailure
+          restartPolicy: Never
           dnsPolicy: ClusterFirst
           terminationGracePeriodSeconds: 300
           {{- if eq .Values.serviceAccount "True" }}
@@ -59,7 +59,8 @@ spec:
                 - --manual-cleanup-hook=/root/hooks/cleanup.sh
                 - --manual-public-ip-logging-ok
                 - --agree-tos
-                - --email={{ range .Values.emails }}{{ . }},{{ end }}
+                - --v
+                - --email={{ .Values.email }}
                 {{- range .Values.domains }}
                 - --domain={{ . }}
                 {{- end }}
