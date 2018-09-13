@@ -1,12 +1,18 @@
 #!/bin/sh
 set -e
-echo ${CERTBOT_VALIDATION} > ./${CERTBOT_TOKEN}
 apk add --no-cache curl
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x kubectl
-./kubectl create secret generic ${ACME_SECRET_NAME} \
---from-file=${CERTBOT_TOKEN}=${PWD}/${CERTBOT_TOKEN} \
---dry-run \
--o yaml \
-| ./kubectl apply -f -
+./kubectl patch secret ${ACME_SECRET_NAME} \
+--type json \
+--patch "
+[
+    {
+        \"op\": \"replace\",
+        \"path\": \"/data\",
+        \"value\": {
+            \"${CERTBOT_TOKEN}\": \"$(echo -n "${CERTBOT_VALIDATION}" | base64 | tr -d \\n)\"
+        }
+    }
+]"
 sleep 30
