@@ -58,6 +58,7 @@ spec:
                 - --manual-auth-hook=/root/hooks/auth.sh
                 - --manual-cleanup-hook=/root/hooks/cleanup.sh
                 - --manual-public-ip-logging-ok
+                - --deploy-hook /root/hooks/deploy.sh
                 - --agree-tos
                 - --email={{ .Values.email }}
                 {{- range .Values.domains }}
