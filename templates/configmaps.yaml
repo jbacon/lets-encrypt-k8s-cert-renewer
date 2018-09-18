@@ -4,4 +4,9 @@ metadata:
   name: {{ template "fullname" . }}
   namespace: {{ .Release.Namespace }}
 data:
-{{ (.Files.Glob "hooks/*").AsConfig | indent 2 }}
+{{- if .Values.hookConfigs.kube }}
+{{ (.Files.Glob "hooks/kube/*").AsConfig | indent 2 }}
+{{- end }}
+{{- if .Values.hookConfigs.aws-s3 }}
+{{ (.Files.Glob "hooks/aws-s3/*").AsConfig | indent 2 }}
+{{- end }}
