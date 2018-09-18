@@ -67,11 +67,11 @@ spec:
               env:
                 - name: CERT_SECRET_NAME
                   value: {{ .Values.certSecret }}
-                {{- if .Values.hookConfigs.kubeTls }}
+                {{- if .Values.hookConfigs.kube }}
                 - name: KUBE_ACME_SECRET_NAME
-                  value: {{ .Values.hookConfigs.kubeTls.acmeSecret }}
+                  value: {{ .Values.hookConfigs.kube.acmeSecret }}
                 - name: KUBE_TLS_SECRET_NAME
-                  value: {{ .Values.hookConfigs.kubeTls.tlsSecret }}
+                  value: {{ .Values.hookConfigs.kube.tlsSecret }}
                 {{- end }}
                 {{- if .Values.hookConfigs.awsS3CloudFront }}
                 - name: AWS_CLOUDFORNT_DISTRIBUTION_ID
