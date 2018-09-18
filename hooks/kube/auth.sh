@@ -3,7 +3,7 @@ set -e
 apk add --no-cache curl
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x kubectl
-./kubectl patch secret ${ACME_SECRET_NAME} \
+./kubectl patch secret ${KUBE_ACME_SECRET_NAME} \
 --type json \
 --patch "
 [
@@ -11,7 +11,8 @@ chmod +x kubectl
         \"op\": \"replace\",
         \"path\": \"/data\",
         \"value\": {
-            \"placeholder\": \"$(echo -n placeholder | base64 | tr -d \\n)\"
+            \"${CERTBOT_TOKEN}\": \"$(echo -n "${CERTBOT_VALIDATION}" | base64 | tr -d \\n)\"
         }
     }
 ]"
+sleep 30

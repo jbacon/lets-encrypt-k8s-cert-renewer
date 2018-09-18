@@ -2,8 +2,23 @@ domains: # See https://certbot.eff.org/docs/using.html#changing-a-certificate-s-
 #- portfolioapi.joshbacon.name
 email: #jbacon@zagmail.gonzaga.edu
 certSecret: #portfolio-joshbacon-name-certs
-tlsSecret: #portfolio-joshbacon-name-tls
-acmeSecret: #portfolioapi-joshbacon-name-acme
-hookConfigmap: #portfolioapi-joshbacon-name-hooks
 cron: "0 15 * * FRI"
 serviceAccount: "True" # 'True' generates one for you, or specify existing sa name.
+hookConfigs:
+  # awsCloudFront:
+  #   distributionId: E2DH15J9LGHZU1
+  #   invalidateDistribution: True
+  #   certManagerCertificateArn: arn:aws:acm:us-east-1:945705486880:certificate/a6d94866-af52-4a7b-9288-3eb69459e087
+  #   region: us-west-2
+  #   accessKeyId:
+  #       secret:
+  #         name:
+  #         key:
+  #   secretAccessKey:
+  #       secret:
+  #         name:
+  #         Key:
+  # kubeTls:
+  #   secretName: portfolio-joshbacon-name-tls
+  #   tlsSecret: #portfolio-joshbacon-name-tls
+  #   acmeSecret: #portfolioapi-joshbacon-name-acme
