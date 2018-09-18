@@ -5,7 +5,7 @@ certSecret: #portfolio-joshbacon-name-certs
 cron: "0 15 * * FRI"
 serviceAccount: "True" # 'True' generates one for you, or specify existing sa name.
 hookConfigs:
-  # awsCloudFront:
+  # awsS3CloudFront:
   #   distributionId: E2DH15J9LGHZU1
   #   invalidateDistribution: True
   #   certManagerCertificateArn: arn:aws:acm:us-east-1:945705486880:certificate/a6d94866-af52-4a7b-9288-3eb69459e087
@@ -18,7 +18,6 @@ hookConfigs:
   #       secret:
   #         name:
   #         Key:
-  # kubeTls:
-  #   secretName: portfolio-joshbacon-name-tls
+  # kube:
   #   tlsSecret: #portfolio-joshbacon-name-tls
   #   acmeSecret: #portfolioapi-joshbacon-name-acme

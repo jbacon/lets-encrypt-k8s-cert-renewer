@@ -69,29 +69,29 @@ spec:
                   value: {{ .Values.certSecret }}
                 {{- if .Values.hookConfigs.kubeTls }}
                 - name: KUBE_ACME_SECRET_NAME
-                  value: {{ .Values.hookConfigs.kubeTls.acmeSecretName }}
+                  value: {{ .Values.hookConfigs.kubeTls.acmeSecret }}
                 - name: KUBE_TLS_SECRET_NAME
-                  value: {{ .Values.hookConfigs.kubeTls.tlsSecretName }}
+                  value: {{ .Values.hookConfigs.kubeTls.tlsSecret }}
                 {{- end }}
-                {{- if .Values.hookConfigs.awsCloudFront }}
+                {{- if .Values.hookConfigs.awsS3CloudFront }}
                 - name: AWS_CLOUDFORNT_DISTRIBUTION_ID
-                  value: {{ .Values.hookConfigs.awsCloudFront.distributionId }}
+                  value: {{ .Values.hookConfigs.awsS3CloudFront.distributionId }}
                 - name: AWS_CLOUDFORNT_INVALIDATE_DISTRIBUTION
-                  value: {{ .Values.hookConfigs.awsCloudFront.invalidateDistribution }}
+                  value: {{ .Values.hookConfigs.awsS3CloudFront.invalidateDistribution }}
                 - name: AWS_ACM_CERT_ARN
-                  value: {{ .Values.hookConfigs.awsCloudFront.certManagerCertArn }}
+                  value: {{ .Values.hookConfigs.awsS3CloudFront.certManagerCertArn }}
                 - name: AWS_ACCESS_KEY_ID
                   valueFrom:
                     secretKeyRef:
-                      name: {{ .Values.hookConfigs.awsCloudFront.accessKeyId.secret.name }}
-                      key: {{ .Values.hookConfigs.awsCloudFront.accessKeyId.secret.key }}
+                      name: {{ .Values.hookConfigs.awsS3CloudFront.accessKeyId.secret.name }}
+                      key: {{ .Values.hookConfigs.awsS3CloudFront.accessKeyId.secret.key }}
                 - name: AWS_SECRET_ACCESS_KEY
                   valueFrom:
                     secretKeyRef:
-                      name: {{ .Values.hookConfigs.awsCloudFront.secretAccessKey.secret.name }}
-                      key: {{ .Values.hookConfigs.awsCloudFront.secretAccessKey.secret.key }}
+                      name: {{ .Values.hookConfigs.awsS3CloudFront.secretAccessKey.secret.name }}
+                      key: {{ .Values.hookConfigs.awsS3CloudFront.secretAccessKey.secret.key }}
                 - name: AWS_DEFAULT_REGION
-                  value: {{ .Values.hookConfigs.awsCloudFront.region }}
+                  value: {{ .Values.hookConfigs.awsS3CloudFront.region }}
                 {{- end }}
               volumeMounts:
                 - name: certs
