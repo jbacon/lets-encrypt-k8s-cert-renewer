@@ -58,7 +58,7 @@ spec:
                 - --manual-auth-hook=/root/hooks/auth.sh
                 - --manual-cleanup-hook=/root/hooks/cleanup.sh
                 - --manual-public-ip-logging-ok
-                - --deploy-hook /root/hooks/deploy.sh
+                - --deploy-hook=/root/hooks/deploy.sh
                 - --agree-tos
                 - --email={{ .Values.email }}
                 {{- range .Values.domains }}
@@ -73,21 +73,23 @@ spec:
                 - name: KUBE_TLS_SECRET_NAME
                   value: {{ .Values.hookConfigs.kube.tlsSecret }}
                 {{- end }}
-                {{- if .Values.hookConfigs.awsS3CloudFront }}
+                {{- if .Values.hookConfigs.awsS3 }}
+                - name: AWS_S3_BUCKET_NAME
+                  value: {{ .Values.hookConfigs.awsS3.s3BucketName }}
                 - name: AWS_ACM_CERT_ARN
-                  value: {{ .Values.hookConfigs.awsS3CloudFront.certManagerCertArn }}
+                  value: {{ .Values.hookConfigs.awsS3.certManagerCertArn }}
                 - name: AWS_ACCESS_KEY_ID
                   valueFrom:
                     secretKeyRef:
-                      name: {{ .Values.hookConfigs.awsS3CloudFront.accessKeyId.secret.name }}
-                      key: {{ .Values.hookConfigs.awsS3CloudFront.accessKeyId.secret.key }}
+                      name: {{ .Values.hookConfigs.awsS3.accessKeyId.secret.name }}
+                      key: {{ .Values.hookConfigs.awsS3.accessKeyId.secret.key }}
                 - name: AWS_SECRET_ACCESS_KEY
                   valueFrom:
                     secretKeyRef:
-                      name: {{ .Values.hookConfigs.awsS3CloudFront.secretAccessKey.secret.name }}
-                      key: {{ .Values.hookConfigs.awsS3CloudFront.secretAccessKey.secret.key }}
+                      name: {{ .Values.hookConfigs.awsS3.secretAccessKey.secret.name }}
+                      key: {{ .Values.hookConfigs.awsS3.secretAccessKey.secret.key }}
                 - name: AWS_DEFAULT_REGION
-                  value: {{ .Values.hookConfigs.awsS3CloudFront.region }}
+                  value: {{ .Values.hookConfigs.awsS3.region }}
                 {{- end }}
               volumeMounts:
                 - name: certs
