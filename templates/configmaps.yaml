@@ -7,6 +7,6 @@ data:
 {{- if .Values.hookConfigs.kube }}
 {{ (.Files.Glob "hooks/kube/*").AsConfig | indent 2 }}
 {{- end }}
-{{- if .Values.hookConfigs.aws-s3 }}
+{{- if .Values.hookConfigs.awsS3 }}
 {{ (.Files.Glob "hooks/aws-s3/*").AsConfig | indent 2 }}
 {{- end }}

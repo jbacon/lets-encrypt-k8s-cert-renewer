@@ -21,12 +21,6 @@ chmod +x kubectl
 
 aws --region us-east-1 acm import-certificate \
 --certificate-arn="${AWS_ACM_CERT_ARN}" \
---certificate="$(cat ${RENEWED_LINEAGE}/cert.pem)" \
---private-key="$(cat ${RENEWED_LINEAGE}/privkey.pem)" \
---certificate-chain="$(cat ${RENEWED_LINEAGE}/fullchain.pem)"
-
-if [ ${AWS_CLOUDFRONT_INVALIDATE_DISTRIBUTION} ]
-then
-aws cloudfront create-invalidation \
---distribution-id "${AWS_CLOUDFRONT_DISTRIBUTION_ID}"
-fi
+--certificate="file://${RENEWED_LINEAGE}/cert.pem" \
+--private-key="file://${RENEWED_LINEAGE}/privkey.pem" \
+--certificate-chain="file://${RENEWED_LINEAGE}/fullchain.pem"

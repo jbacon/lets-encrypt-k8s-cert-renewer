@@ -74,10 +74,6 @@ spec:
                   value: {{ .Values.hookConfigs.kube.tlsSecret }}
                 {{- end }}
                 {{- if .Values.hookConfigs.awsS3CloudFront }}
-                - name: AWS_CLOUDFORNT_DISTRIBUTION_ID
-                  value: {{ .Values.hookConfigs.awsS3CloudFront.distributionId }}
-                - name: AWS_CLOUDFORNT_INVALIDATE_DISTRIBUTION
-                  value: {{ .Values.hookConfigs.awsS3CloudFront.invalidateDistribution }}
                 - name: AWS_ACM_CERT_ARN
                   value: {{ .Values.hookConfigs.awsS3CloudFront.certManagerCertArn }}
                 - name: AWS_ACCESS_KEY_ID
